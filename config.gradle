@@ -1,0 +1,54 @@
+ext {
+
+    // 定义一个项目全局变量isRelease，用于动态切换：组件化模式 / 集成化模式
+    // false: 组件化模式（子模块可以独立运行），true ：集成化模式（打包整个项目apk，子模块不可独立运行）
+    isRelease = true
+
+    androidId = [
+            // 版本号
+            versionCode       : 1,
+            versionName       : "1.0",
+            //
+            compileSdkVersion : 30,
+            buildToolsVersion : "30.0.3",
+            minSdkVersion     : 17,
+            targetSdkVersion  : 30,
+            // 混淆压缩
+            // 1. minifyEnabled 会对代码进行混淆和压缩，shrinkResources 会对比R文件对无用资源进行删除
+            // 2. minifyEnabled 设置为true时shrinkResources 的设置才会生效
+            minifyEnabled     : true,
+            minifyEnabledDebug: false,
+            // android studio 3.0 后此选项不可用
+            // shrinkResources  : true
+            testInstrumentationRunner:"androidx.test.runner.AndroidJUnitRunner"
+    ]
+
+    appId = ["app"     : "com.zzy.stu",
+             "glide"   : "com.zzy.glide",
+             "okhttp"   : "com.zzy.okhttp",
+             "netty"   : "com.zzy.netty"
+    ]
+
+
+    supportLibrary = "1.2.0"
+    dependencies = [
+            appcompat       : "androidx.appcompat:appcompat:${supportLibrary}",
+            material        : "com.google.android.material:material:1.2.1",
+            constraintlayout: "androidx.constraintlayout:constraintlayout:2.0.4",
+            junit           : "junit:junit:4.+",
+            testjunit       : "androidx.test.ext:junit:1.1.2",
+            espresso        : "androidx.test.espresso:espresso-core:3.3.0",
+            // 路由
+            arouterapi      : "com.alibaba:arouter-api:1.5.1",
+            aroutercompiler : "com.alibaba:arouter-compiler:1.5.1",
+            // 数据解析
+            gson            : "com.google.code.gson:gson:2.8.6",
+            // 图片加载
+            glide           : "com.github.bumptech.glide:glide:3.7.0",
+            // 网络框架
+            okhttp           : "com.squareup.okhttp3:okhttp:3.10.0",
+            // 长连接 netty
+            netty            : "io.netty:netty-all:4.1.4.Final"
+    ]
+
+}

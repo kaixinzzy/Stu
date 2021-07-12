@@ -2,23 +2,32 @@ plugins {
     id 'com.android.application'
 }
 
+def rootAndroidId = rootProject.ext.androidId
+def appId = rootProject.ext.appId
+def support = rootProject.ext.dependencies
+
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion rootAndroidId.compileSdkVersion
+    buildToolsVersion rootAndroidId.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.zzy.stu"
-        minSdkVersion 17
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        applicationId appId.app
+        minSdkVersion rootAndroidId.minSdkVersion
+        targetSdkVersion rootAndroidId.targetSdkVersion
+        versionCode rootAndroidId.versionCode
+        versionName rootAndroidId.versionName
+        testInstrumentationRunner rootAndroidId.testInstrumentationRunner
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // 这个方法接收三个非空的参数，第一个：确定值的类型，第二个：指定key的名字，第三个：传值（必须是String）
+        // 为什么需要定义这个？因为src代码中有可能需要用到跨模块交互，如果是组件化模块显然不行
+        // 切记：不能在android根节点，只能在defaultConfig或buildTypes节点下
+        buildConfigField("boolean", "isRelease", String.valueOf(isRelease))
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled rootAndroidId.minifyEnabled
+//            shrinkResources rootAndroidId.shrinkResources
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -29,11 +38,11 @@ android {
 }
 
 dependencies {
-
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation support.appcompat
+    implementation support.material
+    implementation support.constraintlayout
+    testImplementation support.junit
+    androidTestImplementation support.testjunit
+    androidTestImplementation support.espresso
 }

@@ -1,5 +1,5 @@
+rootProject.name = "Stu"
 include ':app'
 include ':001_okhttp'
 include ':006_glide'
 include ':010_netty'
-rootProject.name = "Stu"
