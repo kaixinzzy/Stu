@@ -2,4 +2,7 @@ rootProject.name = "Stu"
 include ':app'
 include ':001_okhttp'
 include ':006_glide'
+include ':007_permissions'
 include ':010_netty'
+include ':020_mvp'
+include ':030_handler'
